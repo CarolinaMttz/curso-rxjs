@@ -1,5 +1,7 @@
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, from, of, asyncScheduler } from 'rxjs';
+
+/* CLASE CREACIÓN DE UN OBSERVABLE */
 /*
 const observableAlfa$ = new Observable(subscriber => {
     subscriber.next(1);
@@ -28,6 +30,8 @@ observableAlfa$.subscribe(observador);
 */
 
 
+
+/* CLASE OBSERVABLES FROMEVENT */
 //const onMouseMove$ = fromEvent(document, "mousemove");
 /*
 const onKeyDown$ = fromEvent(document, "keydown");
@@ -44,6 +48,8 @@ const observadorMouse = {
 onKeyDown$.subscribe(observadorMouse);
 */
 
+/* CLASE OBSERVABLES SUBJECT */
+/*
 const number$ = new Observable(subscriber => {
     //subscriber.next( 10 );
     subscriber.next( Math.round(Math.random()*100) );
@@ -68,3 +74,9 @@ numberRandom$.subscribe(observador2);
 //numberRandom$.next( Math.round(Math.random()*100) );
 number$.subscribe(numberRandom$);
 numberRandom$.next( 45 );
+*/
+
+/* CLASE OBSERVABLES FROM Y OF */
+const fruits$ = from(['MANZANA', 'MANDARINA', 'PERA'], asyncScheduler);
+//const fruits$ = of('MANZANA', 'MANDARINA', 'PERA');
+fruits$.subscribe(console.log)
