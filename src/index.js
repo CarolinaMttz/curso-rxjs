@@ -1,7 +1,6 @@
-/*
-console.log('RxJS');
-import { Observable } from 'rxjs';
 
+import { Observable, Subject } from 'rxjs';
+/*
 const observableAlfa$ = new Observable(subscriber => {
     subscriber.next(1);
     subscriber.next(2);
@@ -28,9 +27,9 @@ const observador = {
 observableAlfa$.subscribe(observador);
 */
 
-import { fromEvent } from 'rxjs' ;
 
 //const onMouseMove$ = fromEvent(document, "mousemove");
+/*
 const onKeyDown$ = fromEvent(document, "keydown");
 
 const observadorMouse = {
@@ -43,3 +42,29 @@ const observadorMouse = {
 };
 
 onKeyDown$.subscribe(observadorMouse);
+*/
+
+const number$ = new Observable(subscriber => {
+    //subscriber.next( 10 );
+    subscriber.next( Math.round(Math.random()*100) );
+})
+
+const numberRandom$ = new Subject();
+
+const observador1 = {
+    next: (number) =>{
+        console.log(number);
+    }
+}
+
+const observador2 = {
+    next: (number) =>{
+        console.log(number);
+    }
+}
+
+numberRandom$.subscribe(observador1);
+numberRandom$.subscribe(observador2);
+//numberRandom$.next( Math.round(Math.random()*100) );
+number$.subscribe(numberRandom$);
+numberRandom$.next( 45 );
