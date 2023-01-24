@@ -1,3 +1,4 @@
+/*
 console.log('RxJS');
 import { Observable } from 'rxjs';
 
@@ -25,3 +26,20 @@ const observador = {
 };
 
 observableAlfa$.subscribe(observador);
+*/
+
+import { fromEvent } from 'rxjs' ;
+
+//const onMouseMove$ = fromEvent(document, "mousemove");
+const onKeyDown$ = fromEvent(document, "keydown");
+
+const observadorMouse = {
+    next: (event) => {
+        //console.log('clientX', event.clientX, 'clientY', event.clientY);
+        console.log(event.key);  
+    },
+    complete: () => {},
+    error: () => {}
+};
+
+onKeyDown$.subscribe(observadorMouse);
