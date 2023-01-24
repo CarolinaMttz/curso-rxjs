@@ -1,5 +1,10 @@
 
-import { Observable, Subject, from, of, asyncScheduler } from 'rxjs';
+import { 
+    Observable, 
+    Subject, 
+    from, of, asyncScheduler,
+    interval, timer
+ } from 'rxjs';
 
 /* CLASE CREACIÓN DE UN OBSERVABLE */
 /*
@@ -77,6 +82,15 @@ numberRandom$.next( 45 );
 */
 
 /* CLASE OBSERVABLES FROM Y OF */
-const fruits$ = from(['MANZANA', 'MANDARINA', 'PERA'], asyncScheduler);
+
+/*const fruits$ = from(['MANZANA', 'MANDARINA', 'PERA'], asyncScheduler);
 //const fruits$ = of('MANZANA', 'MANDARINA', 'PERA');
 fruits$.subscribe(console.log)
+*/
+
+/* CLASE OBSERVABLES INTERNAL Y TIME */
+const sequenceNumber$ = interval(2000);
+const delayedTimer$   = timer(5000); 
+
+//sequenceNumber$.subscribe( console.log );
+delayedTimer$.subscribe( console.log );
