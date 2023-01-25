@@ -8,7 +8,8 @@ import {
  import { 
     map, reduce, filter,
     distinct, distinctUntilChanged, distinctUntilKeyChanged,
-    throttleTime, sampleTime, auditTime, debounceTime 
+    throttleTime, sampleTime, auditTime, debounceTime,
+    mergeWith, mergeAll, mergeMap 
  } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
@@ -149,6 +150,7 @@ repeatedNumbersKeyChanged$.subscribe(console.log);
 */
 
 /* CLASE OPERADORES DE TIMEPO */
+/*
 const onClick$ = fromEvent(document, 'click').pipe(
    // debounceTime(1000)
    //auditTime(1000)
@@ -156,3 +158,35 @@ const onClick$ = fromEvent(document, 'click').pipe(
    sampleTime(4000)
 );
 onClick$.subscribe(console.log);
+*/
+
+/* CLASE OPERADORES MERGEALL MERGEMAP */
+// const onClicks$ = fromEvent(document, 'click').pipe( map(event => event.type ) );
+// const onMouseMoves$ = fromEvent(document, 'mousemove').pipe( map(event => event.type ) );
+
+// onClicks$.subscribe(console.log);
+// onMouseMoves$.subscribe(console.log);
+
+// onMouseMoves$.pipe(
+//     mergeWith(onClicks$)
+// ).subscribe( (value) => {
+//     console.log('obs: ',value)
+// });
+
+// const onClicks$ = fromEvent(document, 'click');
+// const ordenSuperior$ = onClicks$.pipe( map( () => interval(1000) ) );
+// const primerOrden$ = ordenSuperior$.pipe( mergeAll() );
+
+// primerOrden$.subscribe(console.log);
+
+
+const letters$ = from(["A", "B", "C", "D"]); 
+const result$ = letters$.pipe(
+    mergeMap(letter => interval(1000). pipe(
+        map(
+            second => letter + second
+        )
+    ) )
+);
+
+result$.subscribe(console.log);
