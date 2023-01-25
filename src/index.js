@@ -12,7 +12,8 @@ import {
     mergeWith, mergeAll, mergeMap,
     takeUntil, 
     pluck ,
-    startWith, endWith
+    startWith, endWith,
+    catchError, retry
  } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
@@ -215,9 +216,26 @@ fromEvent(document, 'mousemove').pipe(
 */
 
 /* CLASE OPERADORES STARTWITH ENDWITH */
+/*
 const letters$ = of("A", "B", "C", "D").pipe(
     startWith("Z"),
     endWith("E")
 );
 
 letters$.subscribe(console.log);
+*/
+
+/* CLASE MANEJO DE ERRORES EN RXJS */
+const letters$ = of("A", "B", "C", "D").pipe(
+    map( (letter) => {
+        if (letter === "C") {
+            x = 4;
+            
+        }
+        return letter;
+    } ),
+    retry(3),
+    catchError( (error) => of(error.message) )
+);
+
+letters$.subscribe(console.log)
