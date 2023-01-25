@@ -9,7 +9,8 @@ import {
     map, reduce, filter,
     distinct, distinctUntilChanged, distinctUntilKeyChanged,
     throttleTime, sampleTime, auditTime, debounceTime,
-    mergeWith, mergeAll, mergeMap 
+    mergeWith, mergeAll, mergeMap,
+    takeUntil 
  } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
@@ -161,6 +162,7 @@ onClick$.subscribe(console.log);
 */
 
 /* CLASE OPERADORES MERGEALL MERGEMAP */
+/*
 // const onClicks$ = fromEvent(document, 'click').pipe( map(event => event.type ) );
 // const onMouseMoves$ = fromEvent(document, 'mousemove').pipe( map(event => event.type ) );
 
@@ -190,3 +192,15 @@ const result$ = letters$.pipe(
 );
 
 result$.subscribe(console.log);
+*/
+
+
+/* CLASE OPERADORES TAKEUNTIL */
+
+const onMouseMove$ = fromEvent(document, 'mousemove');
+const onMouseDown$ = fromEvent(document, 'mousedown');
+const sourceComplete$ = onMouseMove$.pipe(
+    takeUntil(onMouseDown$)
+);
+sourceComplete$.subscribe(console.log);
+
