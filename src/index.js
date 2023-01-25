@@ -10,7 +10,9 @@ import {
     distinct, distinctUntilChanged, distinctUntilKeyChanged,
     throttleTime, sampleTime, auditTime, debounceTime,
     mergeWith, mergeAll, mergeMap,
-    takeUntil, pluck 
+    takeUntil, 
+    pluck ,
+    startWith, endWith
  } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
@@ -206,6 +208,16 @@ sourceComplete$.subscribe(console.log);
 */
 
 /* CLASE OPERADORES PLUCK */
+/*
 fromEvent(document, 'mousemove').pipe(
     pluck( "clientX" )
 ).subscribe(console.log);
+*/
+
+/* CLASE OPERADORES STARTWITH ENDWITH */
+const letters$ = of("A", "B", "C", "D").pipe(
+    startWith("Z"),
+    endWith("E")
+);
+
+letters$.subscribe(console.log);
