@@ -5,6 +5,7 @@ import {
     from, of, asyncScheduler,
     interval, timer, fromEvent
  } from 'rxjs';
+ 
  import { 
     map, reduce, filter,
     distinct, distinctUntilChanged, distinctUntilKeyChanged,
@@ -15,6 +16,8 @@ import {
     startWith, endWith,
     catchError, retry
  } from 'rxjs/operators';
+
+ import { ajax } from "rxjs/ajax";
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
 /*
@@ -226,6 +229,7 @@ letters$.subscribe(console.log);
 */
 
 /* CLASE MANEJO DE ERRORES EN RXJS */
+/*
 const letters$ = of("A", "B", "C", "D").pipe(
     map( (letter) => {
         if (letter === "C") {
@@ -239,3 +243,35 @@ const letters$ = of("A", "B", "C", "D").pipe(
 );
 
 letters$.subscribe(console.log)
+*/
+
+/* CLASE AJAX */
+const ditto$ = ajax("https://pokeapi.co/api/v2/pokemon/ditto").pipe(
+    map( (data) => console.log(data.response) ),
+    catchError( error => {
+        console.log('Error ', error);
+        return of(error);
+    })
+);
+ditto$.subscribe( console.log);
+
+const postRequest$ = ajax({
+    url:    "https://httpbin.org/delay/5",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: {
+        message: '¿Dónde está ditto?'
+    }
+}).pipe(
+    map( response => {
+        console.log(response)
+    }),
+    catchError( error => {
+        console.log('Error ', error);
+        return of(error);
+    })
+);
+
+postRequest$.subscribe(console.log);
