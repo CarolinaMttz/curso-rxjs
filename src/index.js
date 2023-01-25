@@ -5,7 +5,10 @@ import {
     from, of, asyncScheduler,
     interval, timer
  } from 'rxjs';
- import { map, reduce, filter } from 'rxjs/operators';
+ import { 
+    map, reduce, filter,
+    distinct, distinctUntilChanged, distinctUntilKeyChanged
+ } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
 /*
@@ -99,10 +102,44 @@ delayedTimer$.subscribe( console.log );
 */
 
 /* CLASE OPERADORES MAP, REDUCE Y FILTER */
- const numbers$ = from([1,2,3,4,5,6,7,8,9]).pipe(
+/* 
+const numbers$ = from([1,2,3,4,5,6,7,8,9]).pipe(
     // map( number => number*2 ),
     // map( number => number/2 )
     //reduce( (acc, val) => acc + val, 10 )
     filter( number => number > 4)
  );
  numbers$.subscribe(console.log)
+ */
+
+ /* CLASE OPERADORES DE DISTINCIÓN */
+const repeatedNumbers$ = of(1, 2, 1, 3, 4, 4, 2).pipe(
+    distinct()
+);
+
+const repeatedNumbersChanged$ = of(1, 2, 1, 3, 4, 4, 2).pipe(
+    distinctUntilChanged()
+);
+
+const repeatedNumbersKeyChanged$ = of(
+    { k: 1 },
+    { k: 2 },
+    { k: 2 },
+    { k: 1 },
+    { k: 3 },
+    { k: 4 },
+    { k: 4 },
+    { k: 2 },
+    { k: 1 }
+  ).pipe(
+    distinctUntilKeyChanged("k")
+  );
+
+console.log('distinct');
+repeatedNumbers$.subscribe(console.log);
+
+console.log('distinctUntilChanged');
+repeatedNumbersChanged$.subscribe(console.log);
+
+console.log('distinctUntilKeyChanged');
+repeatedNumbersKeyChanged$.subscribe(console.log);
