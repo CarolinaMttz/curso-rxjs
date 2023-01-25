@@ -10,7 +10,7 @@ import {
     distinct, distinctUntilChanged, distinctUntilKeyChanged,
     throttleTime, sampleTime, auditTime, debounceTime,
     mergeWith, mergeAll, mergeMap,
-    takeUntil 
+    takeUntil, pluck 
  } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
@@ -196,11 +196,16 @@ result$.subscribe(console.log);
 
 
 /* CLASE OPERADORES TAKEUNTIL */
-
+/*
 const onMouseMove$ = fromEvent(document, 'mousemove');
 const onMouseDown$ = fromEvent(document, 'mousedown');
 const sourceComplete$ = onMouseMove$.pipe(
     takeUntil(onMouseDown$)
 );
 sourceComplete$.subscribe(console.log);
+*/
 
+/* CLASE OPERADORES PLUCK */
+fromEvent(document, 'mousemove').pipe(
+    pluck( "clientX" )
+).subscribe(console.log);
