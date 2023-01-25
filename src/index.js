@@ -3,11 +3,12 @@ import {
     Observable, 
     Subject, 
     from, of, asyncScheduler,
-    interval, timer
+    interval, timer, fromEvent
  } from 'rxjs';
  import { 
     map, reduce, filter,
-    distinct, distinctUntilChanged, distinctUntilKeyChanged
+    distinct, distinctUntilChanged, distinctUntilKeyChanged,
+    throttleTime, sampleTime, auditTime, debounceTime 
  } from 'rxjs/operators';
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
@@ -113,6 +114,8 @@ const numbers$ = from([1,2,3,4,5,6,7,8,9]).pipe(
  */
 
  /* CLASE OPERADORES DE DISTINCIÓN */
+
+/*
 const repeatedNumbers$ = of(1, 2, 1, 3, 4, 4, 2).pipe(
     distinct()
 );
@@ -143,3 +146,13 @@ repeatedNumbersChanged$.subscribe(console.log);
 
 console.log('distinctUntilKeyChanged');
 repeatedNumbersKeyChanged$.subscribe(console.log);
+*/
+
+/* CLASE OPERADORES DE TIMEPO */
+const onClick$ = fromEvent(document, 'click').pipe(
+   // debounceTime(1000)
+   //auditTime(1000)
+   //throttleTime(1000)
+   sampleTime(4000)
+);
+onClick$.subscribe(console.log);
