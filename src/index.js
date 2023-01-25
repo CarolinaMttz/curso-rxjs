@@ -5,7 +5,8 @@ import {
     from, of, asyncScheduler,
     interval, timer
  } from 'rxjs';
-
+ import { map, reduce, filter } from 'rxjs/operators';
+ 
 /* CLASE CREACIÓN DE UN OBSERVABLE */
 /*
 const observableAlfa$ = new Observable(subscriber => {
@@ -89,8 +90,19 @@ fruits$.subscribe(console.log)
 */
 
 /* CLASE OBSERVABLES INTERNAL Y TIME */
+/*
 const sequenceNumber$ = interval(2000);
 const delayedTimer$   = timer(5000); 
 
 //sequenceNumber$.subscribe( console.log );
 delayedTimer$.subscribe( console.log );
+*/
+
+/* CLASE OPERADORES MAP, REDUCE Y FILTER */
+ const numbers$ = from([1,2,3,4,5,6,7,8,9]).pipe(
+    // map( number => number*2 ),
+    // map( number => number/2 )
+    //reduce( (acc, val) => acc + val, 10 )
+    filter( number => number > 4)
+ );
+ numbers$.subscribe(console.log)
