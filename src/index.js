@@ -280,11 +280,20 @@ postRequest$.subscribe(console.log);
 */
 
 /* CLASE FROMFETCH */
+/*
 const url = "https://httpbin.org/delay/4";
 const ditto$ = fromFetch(url).pipe( 
     mergeMap( (reponse) => {
         return reponse.json()
     }),
-    takeUntil(timer(6000))
+    takeUntil(timer(1000))
 );
 ditto$.subscribe(console.log)
+*/
+
+/*Pregunta de examen */
+const letters$ = from(["A", "B", "C", "D"]); 
+const receiver = { next: (value) => { 
+    console.log(value);
+ } } 
+ receiver.subscribe(letters$);
