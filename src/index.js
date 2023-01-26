@@ -18,6 +18,7 @@ import {
  } from 'rxjs/operators';
 
  import { ajax } from "rxjs/ajax";
+ import { fromFetch } from "rxjs/fetch";
  
 /* CLASE CREACIÓN DE UN OBSERVABLE */
 /*
@@ -246,6 +247,7 @@ letters$.subscribe(console.log)
 */
 
 /* CLASE AJAX */
+/*
 const ditto$ = ajax("https://pokeapi.co/api/v2/pokemon/ditto").pipe(
     map( (data) => console.log(data.response) ),
     catchError( error => {
@@ -275,3 +277,14 @@ const postRequest$ = ajax({
 );
 
 postRequest$.subscribe(console.log);
+*/
+
+/* CLASE FROMFETCH */
+const url = "https://httpbin.org/delay/4";
+const ditto$ = fromFetch(url).pipe( 
+    mergeMap( (reponse) => {
+        return reponse.json()
+    }),
+    takeUntil(timer(6000))
+);
+ditto$.subscribe(console.log)
